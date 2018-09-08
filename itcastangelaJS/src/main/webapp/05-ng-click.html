@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AngelaJS测试</title>
+    <script src="js/angular.min.js"></script>
+    <script type="text/javascript">
+        //创建模块
+        var app = angular.module("app",[]);
+
+        //注册处理器
+        app.controller("mycontroller",function($scope){
+            $scope.add = function(){
+                $scope.a = parseInt($scope.x) + parseInt($scope.y);
+            }
+        });
+
+    </script>
+</head>
+<body ng-app="app" ng-controller="mycontroller">
+
+x = :<input ng-model="x"><br>
+y = :<input ng-model="y"><br>
+<input type="button" ng-click="add()" value="点击进行计算"/>
+<br>
+
+x + y = {{a}}
+
+</body>
+</html>

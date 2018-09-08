@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AngelaJS测试</title>
+    <script src="js/angular.min.js"></script>
+    <script type="text/javascript">
+        //创建模块
+        var app = angular.module("app",[]);
+
+        //注册处理器
+        app.controller("mycontroller",function($scope){
+            $scope.add = function(){
+                return parseInt($scope.x) + parseInt($scope.y);
+            }
+        });
+
+    </script>
+</head>
+<body ng-app="app" ng-controller="mycontroller">
+
+x = :<input ng-model="x"><br>
+y = :<input ng-model="y"><br>
+
+x + y = {{add()}}
+
+</body>
+</html>

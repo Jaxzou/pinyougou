@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AngelaJS测试</title>
+    <script src="js/angular.min.js"></script>
+    <script type="text/javascript">
+        //创建模块
+        var app = angular.module("app",[]);
+
+        //注册处理器
+        app.controller("mycontroller",function($scope,$http){
+
+            $http.get("../resources/db.json").success(function(response){
+                $scope.persons = response;
+            }).error(function(){
+                alert("获取数据失败");
+            });
+        });
+
+    </script>
+</head>
+<body ng-app="app" ng-controller="mycontroller">
+自定义对象遍历：<br>
+<table>
+<thead>
+<tr>
+    <td>id</td>
+    <td>姓名</td>
+    <td>性别</td>
+</tr>
+</thead>
+<tr ng-repeat="p in persons">
+    <td>{{p.id}}</td>
+    <td>{{p.name}}</td>
+    <td>{{p.gender}}</td>
+</tr>
+</table>
+
+
+</body>
+</html>

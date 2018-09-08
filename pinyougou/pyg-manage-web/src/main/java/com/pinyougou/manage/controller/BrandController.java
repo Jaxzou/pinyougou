@@ -1,6 +1,7 @@
 package com.pinyougou.manage.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.pinyougou.pojo.PageResult;
 import com.pinyougou.pojo.TbBrand;
 import com.pinyougou.sellergoods.service.BrandService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,5 +41,19 @@ public class BrandController {
     public List<TbBrand> queryAll(){
         //return brandService.queryAll();
         return brandService.findAll();
+    }
+
+    /**
+     * 分页查询品牌列表数据
+     * @param page 当前页
+     * @param rows 页面大小
+     * @return 自定义分页数据对象
+     */
+    @GetMapping("findPage")
+    public PageResult findPage(@RequestParam(name = "page",defaultValue = "1")Integer page,
+                               @RequestParam(name = "rows",defaultValue = "10")Integer rows){
+
+        //return brandService.testPage(page,rows);
+        return brandService.findPage(page,rows);
     }
 }
