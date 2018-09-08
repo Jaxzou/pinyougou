@@ -1,6 +1,6 @@
 package com.pinyougou.service;
 
-import com.pinyougou.pojo.PageResult;
+import com.pinyougou.vo.PageResult;
 
 import java.io.Serializable;
 import java.util.List;

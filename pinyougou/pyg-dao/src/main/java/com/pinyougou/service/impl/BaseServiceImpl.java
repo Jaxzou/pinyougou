@@ -2,7 +2,7 @@ package com.pinyougou.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.pinyougou.pojo.PageResult;
+import com.pinyougou.vo.PageResult;
 import com.pinyougou.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.common.Mapper;

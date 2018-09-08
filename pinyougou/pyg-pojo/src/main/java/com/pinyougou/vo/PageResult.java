@@ -1,4 +1,4 @@
-package com.pinyougou.pojo;
+package com.pinyougou.vo;
 
 import java.io.Serializable;
 import java.util.List;
