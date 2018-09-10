@@ -2,6 +2,7 @@ package com.pinyougou.sellergoods.service;
 
 import com.pinyougou.pojo.TbBrand;
 import com.pinyougou.service.BaseService;
+import com.pinyougou.vo.PageResult;
 
 import java.util.List;
 
@@ -24,4 +25,13 @@ public interface BrandService extends BaseService<TbBrand>{
      * @return 返回列表
      */
     List<TbBrand> testPage(Integer page, Integer rows);
+
+    /**
+     * 根据条件分页查询品牌列表
+     * @param tbBrand 条件对象
+     * @param page 当前页
+     * @param rows 页面大小
+     * @return 分页数据
+     */
+    PageResult search(TbBrand tbBrand, Integer page, Integer rows);
 }
