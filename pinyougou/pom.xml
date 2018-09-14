@@ -15,6 +15,7 @@
         <module>pyg-dao</module>
         <module>pyg-sellergoods</module>
         <module>pyg-manage-web</module>
+        <module>pyg-shop-web</module>
     </modules>
 
     <!-- 集中定义依赖版本号 -->

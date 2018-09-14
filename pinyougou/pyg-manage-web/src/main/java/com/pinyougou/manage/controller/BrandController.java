@@ -8,6 +8,7 @@ import com.pinyougou.vo.Result;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Jax.zou
@@ -136,4 +137,13 @@ public class BrandController {
 
         return  brandService.search(tbBrand,page,rows);
     }
-}
+
+    /**
+     * 查询品牌列表数据，返回符合select2格式的
+     * @return
+     */
+    @RequestMapping("selectOptionList")
+    public List<Map<String,Object>> selectOptionList(){
+        return brandService.selectOptionList();
+    }
+ }
