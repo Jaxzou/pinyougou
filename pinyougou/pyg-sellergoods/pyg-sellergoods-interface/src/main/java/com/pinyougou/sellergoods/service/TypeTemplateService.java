@@ -4,6 +4,9 @@ import com.pinyougou.pojo.TbTypeTemplate;
 import com.pinyougou.service.BaseService;
 import com.pinyougou.vo.PageResult;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author Jax.zou
  * @create 2018-09-12 12:21
@@ -25,4 +28,11 @@ public interface TypeTemplateService extends BaseService<TbTypeTemplate> {
      * @return 操作结果
      */
     void delete(Long[] ids);
+
+    /**
+     * 根据分类模板id查询其对应的规格及其规格的选项
+     * @param id 分类模板id
+     * @return 规格及其规格的选项
+     */
+    List<Map> findSpecList(Long id);
 }

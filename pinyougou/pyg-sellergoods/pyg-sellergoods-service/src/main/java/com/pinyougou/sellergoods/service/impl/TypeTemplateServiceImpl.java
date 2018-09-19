@@ -1,11 +1,16 @@
 package com.pinyougou.sellergoods.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.alibaba.fastjson.JSONArray;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.mysql.fabric.xmlrpc.base.Param;
 import com.pinyougou.mapper.BrandMapper;
 import com.pinyougou.mapper.SpecificationMapper;
+import com.pinyougou.mapper.SpecificationOptionMapper;
 import com.pinyougou.mapper.TypeTemplateMapper;
+import com.pinyougou.pojo.TbSpecification;
+import com.pinyougou.pojo.TbSpecificationOption;
 import com.pinyougou.pojo.TbTypeTemplate;
 import com.pinyougou.sellergoods.service.TypeTemplateService;
 import com.pinyougou.service.impl.BaseServiceImpl;
@@ -14,7 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.util.StringUtil;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Jax.zou
@@ -28,10 +35,7 @@ public class TypeTemplateServiceImpl extends BaseServiceImpl<TbTypeTemplate> imp
     private TypeTemplateMapper typeTemplateMapper;
 
     @Autowired
-    private BrandMapper brandMapper;
-
-    @Autowired
-    private SpecificationMapper specificationMapper;
+    private SpecificationOptionMapper specificationOptionMapper;
 
     @Override
     public PageResult search(TbTypeTemplate tbTypeTemplate, Integer page, Integer rows) {
@@ -55,5 +59,25 @@ public class TypeTemplateServiceImpl extends BaseServiceImpl<TbTypeTemplate> imp
                 typeTemplateMapper.deleteByPrimaryKey(id);
             }
         }
+    }
+
+    @Override
+    public List<Map> findSpecList(Long id) {
+        //查询出模板
+        TbTypeTemplate tbTypeTemplate = findOne(id);
+
+        //将数据转为json
+        List<Map> specList = JSONArray.parseArray(tbTypeTemplate.getSpecIds(), Map.class);
+
+        //遍历查出对应的规格选项
+        for (Map map : specList) {
+
+            TbSpecificationOption param = new TbSpecificationOption();
+            param.setSpecId(Long.parseLong(map.get("id").toString()));
+            List<TbSpecificationOption> options = specificationOptionMapper.select(param);
+            map.put("options",options);
+        }
+
+        return specList;
     }
 }

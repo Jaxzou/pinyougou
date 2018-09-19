@@ -274,4 +274,31 @@ app.controller("goodsController", function ($scope, $controller, $location, good
             });
         }
     };
+
+    //商品的上下架状态
+    $scope.goodsMarketable = ["已下架","上架"];
+
+    //修改商品的上下架状态
+    $scope.updateMarketable = function (marketable) {
+        if($scope.selectedIds.length < 1) {
+            alert("请先选择商品");
+            return;
+        }
+        var m = "下架";
+        if(marketable == 1){
+            m = "上架";
+        }
+        if(confirm("确定要"+m+"选中的商品状态吗？")){
+            goodsService.updateMarketable($scope.selectedIds, marketable).success(function (response) {
+                if(response.success) {
+                    alert(response.message);
+                    //刷新列表并清空选中的那些商品
+                    $scope.reloadList();
+                    $scope.selectedIds = [];
+                } else {
+                    alert(response.message);
+                }
+            });
+        }
+    };
 });

@@ -25,11 +25,11 @@
     <script src="../js/service/typeTemplateService.js"></script>
     <script src="../js/controller/baseController.js"></script>
     <script src="../js/controller/itemCatController.js"></script>
-
     <script src="../plugins/select2/angular-select2.js"></script>
+
 </head>
 
-<body ng-app="pinyougou" ng-controller="itemCatController" ng-init="findByParentId(0)" class="hold-transition skin-red sidebar-mini" >
+<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="itemCatController" ng-init="findByParentId(0);findTypeTemplateList()">
   <!-- .box-body -->
                 
                     <div class="box-header with-border">
@@ -40,13 +40,13 @@
                     <div class="box-body">
                   			 <ol class="breadcrumb">	                        	
                         		<li>
-		                        	<a href="#" ng-click="selectList(1,{'id':0})" >顶级分类列表</a>
+		                        	<a href="#" ng-click="selectList(1,{id:0})">顶级分类列表</a>
 		                        </li>
 		                        <li>
-		                       		<a href="#" ng-click="selectList(2,entity_1)" >{{entity_1.name}}</a>
+		                       		<a href="#" ng-click="selectList(2,entity_1)">{{entity_1.name}}</a>
 		                        </li>
 		                        <li>
-		                        	<a href="#" ng-click="selectList(3,entity_2)" >{{entity_2.name}}</a>
+		                        	<a href="#" ng-click="selectList(3,entity_2)">{{entity_2.name}}</a>
 		                        </li>
 	                        </ol>
 
@@ -57,8 +57,8 @@
                             <div class="pull-left">
                                 <div class="form-group form-inline">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-default" title="新建" data-toggle="modal" data-target="#editModal" ><i class="fa fa-file-o"></i> 新建</button>
-                                        <button type="button" class="btn btn-default" title="删除" ><i class="fa fa-trash-o"></i> 删除</button>
+                                        <button type="button" ng-if="grade<3" ng-click="entity={}" class="btn btn-default" title="新建" data-toggle="modal" data-target="#editModal" ><i class="fa fa-file-o"></i> 新建</button>
+                                        <button type="button" ng-click="delete()" class="btn btn-default" title="删除" ><i class="fa fa-trash-o"></i> 删除</button>
                                         <button type="button" class="btn btn-default" title="刷新" ><i class="fa fa-check"></i> 刷新</button>
                                        
                                     </div>
@@ -81,28 +81,22 @@
 			                          </tr>
 			                      </thead>
 			                      <tbody>
-			                          <tr ng-repeat="entity in list">
-			                              <td><input  type="checkbox" ></td>			                              
+			                          <tr ng-repeat="entity in list" >
+			                              <td><input  type="checkbox" ng-click="updateSelection($event, entity.id)" ></td>
 				                          <td>{{entity.id}}</td>
 									      <td>{{entity.name}}</td>
-									      <td>
-                                              {{entity.typeId}}
-									      </td>									      
+									      <td>{{entity.typeId}}</td>
 		                                  <td class="text-center">		                                     
-		                                      <button type="button" ng-if="grade<3" ng-click="selectList(grade+1,entity)" class="btn bg-olive btn-xs" >查询下级</button>
-		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" >修改</button>                                           
+		                                      <button type="button" ng-if="grade!=3" ng-click="selectList(grade+1,entity)" class="btn bg-olive btn-xs" >查询下级</button>
+		                                 	  <button type="button" ng-click="findOne(entity.id)" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal" >修改</button>
 		                                  </td>
 			                          </tr>
-
 			                      </tbody>
 			                  </table>
 			                  <!--数据列表/-->                      
-						
-                        </div>
-                        <!-- 数据表格 /-->
 
-                        
-                        
+                        </div>
+
                      </div>
                     <!-- /.box-body -->
               
@@ -119,14 +113,17 @@
 			
 			<table class="table table-bordered table-striped"  width="800px">
 				<tr>
-		      		<td>上级商品分类</td>
+		      		<td>上级商品分类</td><!--只能保存到一级或二级分类下-->
 		      		<td>
-		      		   珠宝 >>  银饰
+                        顶级分类
+                        <span ng-if="parentId != 0">
+                        >> {{parentName}}
+                        </span>
 		      		</td>
 		      	</tr>
 		      	<tr>
 		      		<td>商品分类名称</td>
-		      		<td><input  class="form-control" placeholder="商品分类名称">  </td>
+		      		<td><input class="form-control" placeholder="商品分类名称" ng-model="entity.name">  </td>
 		      	</tr>			  
 		      	<tr>
 		      		<td>类型模板</td>
@@ -138,7 +135,7 @@
 			
 		</div>
 		<div class="modal-footer">						
-			<button class="btn btn-success" data-dismiss="modal" aria-hidden="true">保存</button>
+			<button class="btn btn-success" data-dismiss="modal" aria-hidden="true" ng-click="save()">保存</button>
 			<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
 		</div>
 	  </div>
