@@ -16,6 +16,12 @@
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
+    <!--配置文件解析器-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"/>
+        <!--文件上传大小限制5M-->
+        <property name="maxUploadSize" value="5242880"/>
+    </bean>
     <!-- 引用 dubbo 服务 -->
     <dubbo:application name="pyg-manage-web"/>
     <dubbo:registry address="zookeeper://192.168.12.168:2181"/>

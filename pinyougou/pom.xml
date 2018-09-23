@@ -16,6 +16,11 @@
         <module>pyg-sellergoods</module>
         <module>pyg-manage-web</module>
         <module>pyg-shop-web</module>
+        <module>pyg-content</module>
+        <module>pyg-portal-web</module>
+        <module>pyg-solr-import</module>
+        <module>pyg-search</module>
+        <module>pyg-search-web</module>
     </modules>
 
     <!-- 集中定义依赖版本号 -->
