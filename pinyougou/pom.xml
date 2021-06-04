@@ -49,7 +49,7 @@
         <activemq.version>5.15.9</activemq.version>
         <cas.client.core.version>3.4.1</cas.client.core.version>
         <spring.data.solr.version>1.5.5.RELEASE</spring.data.solr.version>
-        <httpclient.version>4.5.3</httpclient.version>
+        <httpclient.version>4.5.13</httpclient.version>
         <wxpay.sdk.version>0.0.3</wxpay.sdk.version>
         <httpcore.version>4.4.8</httpcore.version>
         <javassist.version>3.12.1.GA</javassist.version>
